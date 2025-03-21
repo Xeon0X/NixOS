@@ -45,6 +45,14 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
+
+  # Custom config for touchscreen
+  services.xserver.wacom.enable = true;
+  services.iptsd.enable = true;
+  services.iptsd.config.Touchscreen = {
+    DisableOnStylus = true;
+    DisableOnPalm = true;
+  };
   environment.etc."libinput/local-overrides.quirks".text = pkgs.lib.mkForce ''
         [Microsoft Surface Laptop Studio Touchpad]
         MatchVendor=0x045E
@@ -52,7 +60,9 @@
         MatchUdevType=touchpad
         AttrPressureRange=2:1
         AttrPalmPressureThreshold=500
+        AttrEventCode=-REL_WHEEL_HI_RES;-REL_HWHEEL_HI_RES;
    '';
+
 
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
@@ -142,8 +152,6 @@
 
   services.thermald.enable = true;
   services.flatpak.enable = true;
-  services.xserver.wacom.enable = true;
-  services.iptsd.enable = true;
   programs.zsh = {
     enable = true;
   };
