@@ -1,14 +1,15 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ pkgs, ... }:
-
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  pkgs,
+  inputs,
+  ...
+}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -44,6 +45,14 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
+  environment.etc."libinput/local-overrides.quirks".text = pkgs.lib.mkForce ''
+        [Microsoft Surface Laptop Studio Touchpad]
+        MatchVendor=0x045E
+        MatchProduct=0x09AF
+        MatchUdevType=touchpad
+        AttrPressureRange=2:1
+        AttrPalmPressureThreshold=500
+   '';
 
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
@@ -81,14 +90,14 @@
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
   users.users.xeon0x = {
     isNormalUser = true;
     description = "Xeon0X";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = ["networkmanager" "wheel"];
     shell = pkgs.zsh;
     packages = with pkgs; [
-    #  thunderbird
+      #  thunderbird
     ];
   };
 
@@ -96,43 +105,58 @@
   programs.firefox.enable = true;
 
   # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs = {
+    config.allowUnfree = true;
+    overlays = [
+      (self: super: let
+        unstable = import inputs.nixpkgs-unstable {
+          config = super.config;
+          system = super.system;
+        };
+      in {
+        zed-editor = unstable.zed-editor;
+      })
+    ];
+  };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    wget
-    obsidian
-    alejandra
-    libreoffice
-    rnote
-    libwacom-surface
-    surface-control
-    blender
-    gnome-software
-    prismlauncher
-    zed-editor
-    nixd
-    nil
-    keepassxc
-  ];
-    services.flatpak.enable = true;
-    services.xserver.wacom.enable = true;
-    services.iptsd.enable = true;
-    programs.zsh = {
-      enable = true;
-    };
-    programs.zsh.ohMyZsh = {
-        enable = true;
-        plugins = [ "git" "python" "man" ];
-        theme="robbyrussell";
-      };
-    programs.direnv = {
-      enable = true;
-      nix-direnv.enable = true;
-      loadInNixShell = true;
-    };
+  environment.systemPackages = with pkgs;
+    [
+      vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+      btop
+      wget
+      obsidian
+      alejandra
+      libreoffice
+      rnote
+      libwacom-surface
+      surface-control
+      blender
+      gnome-software
+      prismlauncher
+      nixd
+      nil
+      keepassxc
+    ];
+
+  services.thermald.enable = true;
+  services.flatpak.enable = true;
+  services.xserver.wacom.enable = true;
+  services.iptsd.enable = true;
+  programs.zsh = {
+    enable = true;
+  };
+  programs.zsh.ohMyZsh = {
+    enable = true;
+    plugins = ["git" "python" "man"];
+    theme = "robbyrussell";
+  };
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+    loadInNixShell = true;
+  };
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;

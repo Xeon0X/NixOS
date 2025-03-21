@@ -1,6 +1,4 @@
-{
-  ...
-}: {
+{unstable, ...}: {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home.username = "xeon0x";
@@ -115,7 +113,7 @@
       # Terminal
       terminal = {
         default_width = 500;
-        dock = "right";
+        dock = "bottom";
         working_directory = "current_project_directory";
         detect_venv = {
           on = {
@@ -133,7 +131,7 @@
         dock = "right";
         default_model = {
           provider = "zed.dev";
-          model = "mistral-large-latest";
+          model = "claude-3-5-sonnet-latest";
         };
         version = "2";
       };
