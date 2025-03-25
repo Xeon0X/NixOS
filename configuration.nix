@@ -55,19 +55,21 @@
     DisableOnPalm = true;
   };
   environment.etc."libinput/local-overrides.quirks".text = pkgs.lib.mkForce ''
-        [Microsoft Surface Laptop Studio Touchpad]
-        MatchVendor=0x045E
-        MatchProduct=0x09AF
-        MatchUdevType=touchpad
-        AttrPressureRange=2:1
-        AttrPalmPressureThreshold=500
-        AttrEventCode=-REL_WHEEL_HI_RES;-REL_HWHEEL_HI_RES;
-   '';
-
+    [Microsoft Surface Laptop Studio Touchpad]
+    MatchVendor=0x045E
+    MatchProduct=0x09AF
+    MatchUdevType=touchpad
+    AttrPressureRange=2:1
+    AttrPalmPressureThreshold=500
+    AttrEventCode=-REL_WHEEL_HI_RES;-REL_HWHEEL_HI_RES;
+  '';
 
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
+
+  # GNOME Configuration
+  programs.dconf.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -132,24 +134,24 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs;
-    [
-      vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-      btop
-      wget
-      obsidian
-      alejandra
-      libreoffice
-      rnote
-      libwacom-surface
-      surface-control
-      blender
-      gnome-software
-      prismlauncher
-      nixd
-      nil
-      keepassxc
-    ];
+  environment.systemPackages = with pkgs; [
+    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    btop
+    wget
+    obsidian
+    alejandra
+    libreoffice
+    rnote
+    libwacom-surface
+    surface-control
+    blender
+    gnome-software
+    prismlauncher
+    nixd
+    nil
+    keepassxc
+    gnome-tweaks
+  ];
 
   services.thermald.enable = true;
   services.flatpak.enable = true;

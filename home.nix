@@ -1,4 +1,8 @@
-{unstable, ...}: {
+{
+  unstable,
+  pkgs,
+  ...
+}: {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home.username = "xeon0x";
@@ -14,6 +18,54 @@
   # changes in each release.
   home.stateVersion = "24.11";
   programs.home-manager.enable = true;
+
+  # dconf watch /
+  dconf.settings = {
+    "org/gnome/desktop/interface" = {
+      enable-hot-corners = false;
+    };
+    "org/gnome/mutter" = {
+      dynamic-workspaces = true;
+    };
+    "org/gnome/desktop/datetime" = {
+      automatic-timezone = true;
+    };
+    "org/gnome/desktop/interface" = {
+      clock-show-weekday = true;
+      clock-show-seconds = true;
+    };
+    "org/gnome/desktop/calendar" = {
+      show-weekdate = true;
+    };
+    "org/gnome/desktop/interface" = {
+      accent-color = "purple";
+    };
+
+    "org/gnome/shell" = {
+      disable-user-extensions = false;
+
+      # gnome-extensions list
+      enabled-extensions = [
+        "trayIconsReloaded@selfmade.pl"
+        "launch-new-instance@gnome-shell-extensions.gcampax.github.com"
+        "light-style@gnome-shell-extensions.gcampax.github.com"
+        "system-monitor@gnome-shell-extensions.gcampax.github.com"
+      ];
+
+      disabled-extensions = [
+
+      ];
+    };
+  };
+
+  # test
+  home.packages = with pkgs; [
+    gnomeExtensions.tray-icons-reloaded
+    gnomeExtensions.launch-new-instance
+    gnomeExtensions.light-style
+    gnomeExtensions.system-monitor
+  ];
+
   programs.git = {
     enable = true;
     userName = "Xeon0X";

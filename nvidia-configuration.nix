@@ -13,16 +13,14 @@
   services.xserver.videoDrivers = ["nvidia"];
 
   hardware.nvidia = {
-
-      prime.offload = {
-        enable = true;
-        enableOffloadCmd = true;
-      };
-      # Make sure to use the correct Bus ID values for your system!
-      prime.intelBusId = "PCI:0:2:0";
-      prime.nvidiaBusId = "PCI:243:0:0";
-      # amdgpuBusId = "PCI:54:0:0"; For AMD GPU
-
+    prime.offload = {
+      enable = true;
+      enableOffloadCmd = true;
+    };
+    # Make sure to use the correct Bus ID values for your system!
+    prime.intelBusId = "PCI:0:2:0";
+    prime.nvidiaBusId = "PCI:243:0:0";
+    # amdgpuBusId = "PCI:54:0:0"; For AMD GPU
 
     # Modesetting is required.
     modesetting.enable = true;
