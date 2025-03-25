@@ -151,6 +151,8 @@
     nil
     keepassxc
     gnome-tweaks
+    gnome-extension-manager
+    orca-slicer
   ];
 
   services.thermald.enable = true;

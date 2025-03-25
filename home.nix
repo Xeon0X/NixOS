@@ -48,8 +48,12 @@
       enabled-extensions = [
         "trayIconsReloaded@selfmade.pl"
         "launch-new-instance@gnome-shell-extensions.gcampax.github.com"
-        "light-style@gnome-shell-extensions.gcampax.github.com"
+        # "light-style@gnome-shell-extensions.gcampax.github.com"
         "system-monitor@gnome-shell-extensions.gcampax.github.com"
+        "nightthemeswitcher@romainvigier.fr"
+        "tilingshell@ferrarodomenico.com"
+        "blur-my-shell@aunetx"
+        "blurmylightshell@dikasp.gitlab"
       ];
 
       disabled-extensions = [
@@ -58,12 +62,15 @@
     };
   };
 
-  # test
   home.packages = with pkgs; [
     gnomeExtensions.tray-icons-reloaded
     gnomeExtensions.launch-new-instance
-    gnomeExtensions.light-style
+    # gnomeExtensions.light-style
     gnomeExtensions.system-monitor
+    gnomeExtensions.night-theme-switcher
+    gnomeExtensions.tiling-shell
+    gnomeExtensions.blur-my-shell
+    gnomeExtensions.blur-my-light-shell
   ];
 
   programs.git = {
