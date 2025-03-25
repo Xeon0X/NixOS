@@ -1,6 +1,7 @@
 {
   unstable,
   pkgs,
+  lib,
   ...
 }: {
   # Home Manager needs a bit of information about you and the
@@ -41,6 +42,13 @@
       accent-color = "purple";
     };
 
+    "org/gnome/shell/extensions/tilingshell" = {
+      inner-gaps = lib.hm.gvariant.mkUint32 8;
+      outer-gaps = lib.hm.gvariant.mkUint32 4;
+      enable-autotiling = true;
+    };
+
+
     "org/gnome/shell" = {
       disable-user-extensions = false;
 
@@ -53,7 +61,7 @@
         "nightthemeswitcher@romainvigier.fr"
         "tilingshell@ferrarodomenico.com"
         "blur-my-shell@aunetx"
-        "blurmylightshell@dikasp.gitlab"
+        "luminus-desktop-y@dikasp.gitlab"
       ];
 
       disabled-extensions = [
@@ -70,7 +78,7 @@
     gnomeExtensions.night-theme-switcher
     gnomeExtensions.tiling-shell
     gnomeExtensions.blur-my-shell
-    gnomeExtensions.blur-my-light-shell
+    gnomeExtensions.luminus-desktop-y
   ];
 
   programs.git = {
