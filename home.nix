@@ -88,7 +88,7 @@
   };
   programs.zed-editor = {
     enable = true;
-    extensions = ["nix" "ruff"];
+    extensions = ["nix" "ruff" "java"];
     userKeymaps = [
       {
         context = "Workspace";
@@ -203,6 +203,10 @@
         version = "2";
       };
 
+      edit_predictions = {
+        mode = "subtle";
+      };
+
       features = {
         edit_prediction_provider = "zed";
         smart_completion = true;
@@ -233,6 +237,17 @@
             };
             python = {
               pythonPath = ".venv/bin/python";
+            };
+          };
+        };
+        jdtls = {
+          initialization_options = {
+            bundles = [
+            ];
+            settings = {
+              java = {
+                home = "/run/current-system/sw/bin/java";
+              };
             };
           };
         };

@@ -153,6 +153,8 @@
     gnome-tweaks
     gnome-extension-manager
     orca-slicer
+    jdk # required for zed java extension
+    python3 # required for zed java extension
   ];
 
   services.thermald.enable = true;
