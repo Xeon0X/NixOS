@@ -1,9 +1,11 @@
 {
   inputs = {
-    nixpkgs.url = github:NixOS/nixpkgs/nixos-24.11;
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager = {
+            url = "github:nix-community/home-manager/release-24.11";
+            inputs.nixpkgs.follows = "nixpkgs";  # Follows stable nixpkgs by default
+        };
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
   };
   outputs = {

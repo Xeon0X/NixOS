@@ -155,6 +155,7 @@
     orca-slicer
     jdk # required for zed java extension
     python3 # required for zed java extension
+    inkscape
   ];
 
   services.thermald.enable = true;
