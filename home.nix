@@ -240,17 +240,6 @@
             };
           };
         };
-        jdtls = {
-          initialization_options = {
-            bundles = [
-            ];
-            settings = {
-              java = {
-                home = "/run/current-system/sw/bin/java";
-              };
-            };
-          };
-        };
       };
 
       # Preferences
