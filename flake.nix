@@ -1,12 +1,18 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     home-manager = {
-            url = "github:nix-community/home-manager/release-24.11";
+            url = "github:nix-community/home-manager/release-25.05";
             inputs.nixpkgs.follows = "nixpkgs";  # Follows stable nixpkgs by default
         };
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    zen-browser = {
+        url = "github:0xc000022070/zen-browser-flake";
+        # IMPORTANT: we're using "libgbm" and is only available in unstable so ensure
+        # to have it up-to-date or simply don't specify the nixpkgs input
+        inputs.nixpkgs.follows = "nixpkgs";
+      };
   };
   outputs = {
     self,
