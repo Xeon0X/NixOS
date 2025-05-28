@@ -115,7 +115,7 @@
   };
 
   # Install firefox.
-  programs.firefox.enable = true;
+  # programs.firefox.enable = true;
 
   # Allow unfree packages
   nixpkgs = {
@@ -138,26 +138,14 @@
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     btop
     wget
-    obsidian
     alejandra
-    libreoffice
-    rnote
     libwacom-surface
     surface-control
-    blender
     gnome-software
-    prismlauncher
     nixd
     nil
-    keepassxc
     gnome-tweaks
     gnome-extension-manager
-    orca-slicer
-    jdk # required for zed java extension
-    python3 # required for zed java extension
-    inkscape
-    jetbrains.idea-community
-    # (rstudioWrapper.override{ packages = with rPackages; [ ggplot2 dplyr xts ]; })
   ];
 
   services.thermald.enable = true;
@@ -165,16 +153,19 @@
   programs.zsh = {
     enable = true;
   };
+
   programs.zsh.ohMyZsh = {
     enable = true;
     plugins = ["git" "python" "man"];
     theme = "robbyrussell";
   };
+
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
     loadInNixShell = true;
   };
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
