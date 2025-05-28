@@ -128,6 +128,7 @@
         };
       in {
         zed-editor = unstable.zed-editor;
+        worldpainter = unstable.worldpainter;
       })
     ];
   };

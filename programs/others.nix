@@ -11,5 +11,9 @@
     python3 # required for zed java extension
     inkscape
     jetbrains.idea-community
+    vdhcoapp
+    worldpainter
+    jmc2obj
+    freecad
   ];
 }

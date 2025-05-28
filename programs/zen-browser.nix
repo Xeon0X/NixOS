@@ -2,6 +2,11 @@
   programs.zen-browser = {
     enable = true;
     nativeMessagingHosts = [pkgs.firefoxpwa];
+
+    /*
+    ---- POLICIES ----
+    */
+    # Check about:policies#documentation for options.
     policies = {
       AutofillAddressEnabled = true;
       AutofillCreditCardEnabled = false;
@@ -20,9 +25,14 @@
         Fingerprinting = true;
       };
 
-      # Extension ID can be found at about:support after being manually installed
+      /*
+      ---- EXTENSIONS ----
+      */
+      # Check about:support for extension/add-on ID strings.
+      # Valid strings for installation_mode are "allowed", "blocked",
+      # "force_installed" and "normal_installed".
       ExtensionSettings = {
-        "*".installation_mode = "blocked"; # blocks all addons except the ones specified below
+        "*".installation_mode = "allowed"; # blocks all addons except the ones specified below
         # uBlock Origin:
         "uBlock0@raymondhill.net" = {
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
@@ -46,6 +56,31 @@
         # Dark reader
         "addon@darkreader.org" = {
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/darkreader/latest.xpi";
+          installation_mode = "force_installed";
+        };
+        # Wikiwand
+        "jid1-D7momAzRw417Ag@jetpack" = {
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/wikiwand-wikipedia-modernized/latest.xpi";
+          installation_mode = "force_installed";
+        };
+        # I don't care about cookies
+        "jid1-KKzOGWgsW3Ao4Q@jetpack" = {
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/i-dont-care-about-cookies/latest.xpi";
+          installation_mode = "force_installed";
+        };
+        # Wappalyzer
+        "wappalyzer@crunchlabz.com" = {
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/wappalyzer/latest.xpi";
+          installation_mode = "force_installed";
+        };
+        # User Agent
+        "{a6c4a591-f1b2-4f03-b3ff-767e5bedf4e7}" = {
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/user-agent-string-switcher/latest.xpi";
+          installation_mode = "force_installed";
+        };
+        # Video download helper
+        "{b9db16a4-6edc-47ec-a1f4-b86292ed211d}" = {
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/video-downloadhelper/latest.xpi";
           installation_mode = "force_installed";
         };
       };
