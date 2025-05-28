@@ -2,6 +2,8 @@
   unstable,
   pkgs,
   lib,
+  system,
+  inputs,
   ...
 }: {
   # Home Manager needs a bit of information about you and the
@@ -48,7 +50,6 @@
       enable-autotiling = true;
     };
 
-
     "org/gnome/shell" = {
       disable-user-extensions = false;
 
@@ -67,7 +68,6 @@
       ];
 
       disabled-extensions = [
-
       ];
     };
   };
@@ -83,11 +83,41 @@
     gnomeExtensions.luminus-desktop-y
   ];
 
+  imports = [
+    # inputs.zen-browser.homeModules.beta
+    inputs.zen-browser.homeModules.twilight
+    # inputs.zen-browser.homeModules.twilight-official
+  ];
+
+  programs.zen-browser = {
+    enable = true;
+    nativeMessagingHosts = [pkgs.firefoxpwa];
+    policies = {
+        AutofillAddressEnabled = true;
+        AutofillCreditCardEnabled = false;
+        DisableAppUpdate = true;
+        DisableFeedbackCommands = true;
+        DisableFirefoxStudies = true;
+        DisablePocket = true; # save webs for later reading
+        DisableTelemetry = true;
+        DontCheckDefaultBrowser = true;
+        NoDefaultBookmarks = true;
+        OfferToSaveLogins = false;
+        EnableTrackingProtection = {
+            Value = true;
+            Locked = true;
+            Cryptomining = true;
+            Fingerprinting = true;
+        };
+    };
+  };
+
   programs.git = {
     enable = true;
     userName = "Xeon0X";
     userEmail = "xeon0x.gaming@gmail.com";
   };
+
   programs.zed-editor = {
     enable = true;
     extensions = ["nix" "ruff" "java"];

@@ -84,7 +84,7 @@
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -157,8 +157,6 @@
     python3 # required for zed java extension
     inkscape
     jetbrains.idea-community
-    tetris
-    bastet
     # (rstudioWrapper.override{ packages = with rPackages; [ ggplot2 dplyr xts ]; })
   ];
 

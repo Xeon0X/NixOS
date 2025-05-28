@@ -19,6 +19,7 @@
     nixpkgs,
     nixos-hardware,
     home-manager,
+    zen-browser,
     ...
   } @ inputs: {
     nixosConfigurations.nixos =
@@ -32,6 +33,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.xeon0x = import ./home.nix;
+            home-manager.extraSpecialArgs = { inherit inputs; system = "x86_64-linux";};
           }
         ];
         specialArgs = {inherit inputs;};
