@@ -17,7 +17,7 @@
   # You can update Home Manager without changing this value. See
   # the Home Manager release notes for a list of state version
   # changes in each release.
-  home.stateVersion = "24.11";
+  home.stateVersion = "25.05";
   programs.home-manager.enable = true;
 
   # dconf watch /
@@ -62,6 +62,8 @@
         "tilingshell@ferrarodomenico.com"
         "blur-my-shell@aunetx"
         "luminus-desktop-y@dikasp.gitlab"
+        "burn-my-windows@schneegans.github.com"
+        "restartto@tiagoporsch.github.io"
       ];
 
       disabled-extensions = [

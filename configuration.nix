@@ -159,7 +159,7 @@
     jetbrains.idea-community
     tetris
     bastet
-    (rstudioWrapper.override{ packages = with rPackages; [ ggplot2 dplyr xts ]; })
+    # (rstudioWrapper.override{ packages = with rPackages; [ ggplot2 dplyr xts ]; })
   ];
 
   services.thermald.enable = true;
