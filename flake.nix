@@ -13,11 +13,13 @@
       # to have it up-to-date or simply don't specify the nixpkgs input
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    disko.url = "github:nix-community/disko";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs = {
     self,
     nixpkgs,
-    nixos-hardware,
+    disko,
     home-manager,
     zen-browser,
     ...
@@ -27,8 +29,8 @@
       {
         modules = [
           ./configuration.nix
-          nixos-hardware.nixosModules.microsoft-surface-common
           home-manager.nixosModules.home-manager
+          disko.nixosModules.disko
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
