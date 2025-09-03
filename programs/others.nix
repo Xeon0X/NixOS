@@ -1,6 +1,5 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
-    blender
     obsidian
     libreoffice
     rnote
@@ -15,5 +14,6 @@
     worldpainter
     jmc2obj
     freecad
+    nextcloud-client
   ];
 }

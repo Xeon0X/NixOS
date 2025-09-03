@@ -3,6 +3,7 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 {
   pkgs,
+  lib,
   inputs,
   ...
 }: {
@@ -13,10 +14,20 @@
   ];
 
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
+  # boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "nixos"; # Define your hostname.
+  # Lanzaboote currently replaces the systemd-boot module.
+  # This setting is usually set to true in configuration.nix
+  # generated at installation time. So we force it to false
+  # for now.
+  boot.loader.systemd-boot.enable = lib.mkForce false;
+  boot.lanzaboote = {
+    enable = true;
+    pkiBundle = "/var/lib/sbctl";
+  };
+
+  networking.hostName = "nixos-laptop"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -46,6 +57,17 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
+
+  fonts.fontconfig.antialias = true;
+  fonts.fontconfig.hinting.enable = true;
+  fonts.fontconfig.hinting.autohint = true;
+  fonts.fontconfig.hinting.style = "slight";
+  fonts.fontconfig.subpixel.rgba = "rgb";
+
+  fonts.packages = with pkgs; [
+    cascadia-code
+    minecraftia
+  ];
 
   # Custom config for touchscreen
   services.xserver.wacom.enable = true;
@@ -109,9 +131,6 @@
     description = "Xeon0X";
     extraGroups = ["networkmanager" "wheel"];
     shell = pkgs.zsh;
-    packages = with pkgs; [
-      #  thunderbird
-    ];
   };
 
   # Install firefox.
@@ -130,16 +149,19 @@
         zed-editor = unstable.zed-editor;
         worldpainter = unstable.worldpainter;
       })
+
+    inputs.blender-bin.overlays.default
     ];
   };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    blender_4_5
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     btop
     wget
-    alejandra
+    # alejandra
     libwacom-surface
     surface-control
     gnome-software
@@ -147,18 +169,41 @@
     nil
     gnome-tweaks
     gnome-extension-manager
+    input-leap
+    nextcloud-client
+    nixfmt-rfc-style
+    vulkan-loader
+    vulkan-validation-layers
+    vulkan-tools
+    sbctl # For Lanzaboot
   ];
 
   services.thermald.enable = true;
   services.flatpak.enable = true;
+
   programs.zsh = {
     enable = true;
-  };
+    enableCompletion = true;
+    autosuggestions.enable = true;
+    syntaxHighlighting.enable = true;
 
-  programs.zsh.ohMyZsh = {
-    enable = true;
-    plugins = ["git" "python" "man"];
-    theme = "robbyrussell";
+    shellAliases = {
+      ll = "ls -l";
+      nix-rebuild = "sudo nixos-rebuild switch --flake .#nixos-laptop --show-trace";
+      nix-setting = "dconf watch /";
+      nix-clean = "sudo nix-collect-garbage -d";
+      nix-update = "sudo nix flake update";
+    };
+
+    ohMyZsh = {
+      enable = true;
+      plugins = [
+        "git"
+        "python"
+        "man"
+      ];
+      theme = "robbyrussell";
+    };
   };
 
   programs.direnv = {
@@ -181,8 +226,8 @@
   # services.openssh.enable = true;
 
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
+  networking.firewall.allowedTCPPorts = [ 24800 ];
+  networking.firewall.allowedUDPPorts = [ 24800 ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
@@ -193,4 +238,10 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.11"; # Did you read the comment?
+
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 30d";
+  };
 }

@@ -9,6 +9,10 @@
     enable = true;
   };
 
+  environment.variables = {
+    XDG_DATA_DIRS = lib.mkForce "/run/opengl-driver/share:$XDG_DATA_DIRS"; # For Vulkan
+  };
+
   # Load nvidia driver for Xorg and Wayland
   services.xserver.videoDrivers = ["nvidia"];
 

@@ -1,4 +1,14 @@
 {
+  # Cuda
+  nixConfig = {
+    extra-substituters = [
+      "https://cuda-maintainers.cachix.org"
+    ];
+    extra-trusted_public-keys = [
+      "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
+    ];
+  };
+
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
@@ -13,6 +23,13 @@
       # to have it up-to-date or simply don't specify the nixpkgs input
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    blender-bin.url = "github:edolstra/nix-warez?dir=blender";
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.4.2";
+
+      # Optional but recommended to limit the size of your system closure.
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs = {
     self,
@@ -20,9 +37,11 @@
     nixos-hardware,
     home-manager,
     zen-browser,
+    blender-bin,
+    lanzaboote,
     ...
   } @ inputs: {
-    nixosConfigurations.nixos =
+    nixosConfigurations.nixos-laptop =
       nixpkgs.lib.nixosSystem
       {
         modules = [
@@ -38,6 +57,7 @@
               system = "x86_64-linux";
             };
           }
+          lanzaboote.nixosModules.lanzaboote
         ];
         specialArgs = {inherit inputs;};
       };

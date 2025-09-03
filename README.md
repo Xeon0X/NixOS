@@ -1,7 +1,7 @@
 Rebuild
 
 ```bash
-sudo nixos-rebuild switch --flake . --show-trace
+sudo nixos-rebuild switch --flake .#nixos-laptop --show-trace
 ```
 
 Update
