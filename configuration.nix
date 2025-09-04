@@ -195,6 +195,12 @@
       nix-update = "sudo nix flake update";
     };
 
+    shellInit = ''
+      nix-quick(){
+        ${lib.getExe pkgs.nix} flake init --template "https://flakehub.com/f/the-nix-way/dev-templates/*#$1"
+    }
+    '';
+
     ohMyZsh = {
       enable = true;
       plugins = [

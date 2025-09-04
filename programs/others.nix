@@ -14,6 +14,7 @@
     worldpainter
     jmc2obj
     freecad
+    kicad
     nextcloud-client
   ];
 }
