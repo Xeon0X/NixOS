@@ -178,6 +178,10 @@
     sbctl # For Lanzaboote
   ];
 
+  virtualisation.docker = {
+    enable = true;
+  };
+
   services.thermald.enable = true;
   services.flatpak.enable = true;
 
