@@ -6,7 +6,8 @@
   lib,
   inputs,
   ...
-}: {
+}:
+{
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -126,11 +127,17 @@
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
   users.users.xeon0x = {
     isNormalUser = true;
     description = "Xeon0X";
-    extraGroups = ["networkmanager" "wheel"];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
     shell = pkgs.zsh;
   };
 
@@ -141,17 +148,21 @@
   nixpkgs = {
     config.allowUnfree = true;
     overlays = [
-      (self: super: let
-        unstable = import inputs.nixpkgs-unstable {
-          config = super.config;
-          system = super.system;
-        };
-      in {
-        zed-editor = unstable.zed-editor;
-        worldpainter = unstable.worldpainter;
-      })
+      (
+        self: super:
+        let
+          unstable = import inputs.nixpkgs-unstable {
+            config = super.config;
+            system = super.system;
+          };
+        in
+        {
+          zed-editor = unstable.zed-editor;
+          worldpainter = unstable.worldpainter;
+        }
+      )
 
-    inputs.blender-bin.overlays.default
+      inputs.blender-bin.overlays.default
     ];
   };
 
@@ -187,34 +198,34 @@
   services.flatpak.enable = true;
 
   programs.zsh = {
-     enable = true;
-  #   enableCompletion = true;
-  #   autosuggestions.enable = true;
-  #   syntaxHighlighting.enable = true;
+    enable = true;
+    #   enableCompletion = true;
+    #   autosuggestions.enable = true;
+    #   syntaxHighlighting.enable = true;
 
-  #   shellAliases = {
-  #     ll = "ls -l";
-  #     nix-rebuild = "sudo nixos-rebuild switch --flake .#nixos-laptop --show-trace";
-  #     nix-setting = "dconf watch /";
-  #     nix-clean = "sudo nix-collect-garbage -d";
-  #     nix-update = "sudo nix flake update";
-  #   };
+    #   shellAliases = {
+    #     ll = "ls -l";
+    #     nix-rebuild = "sudo nixos-rebuild switch --flake .#nixos-laptop --show-trace";
+    #     nix-setting = "dconf watch /";
+    #     nix-clean = "sudo nix-collect-garbage -d";
+    #     nix-update = "sudo nix flake update";
+    #   };
 
-  #   shellInit = ''
-  #     nix-quick(){
-  #       ${lib.getExe pkgs.nix} flake init --template "https://flakehub.com/f/the-nix-way/dev-templates/*#$1"
-  #   }
-  #   '';
+    #   shellInit = ''
+    #     nix-quick(){
+    #       ${lib.getExe pkgs.nix} flake init --template "https://flakehub.com/f/the-nix-way/dev-templates/*#$1"
+    #   }
+    #   '';
 
-  #   ohMyZsh = {
-  #     enable = true;
-  #     plugins = [
-  #       "git"
-  #       "python"
-  #       "man"
-  #     ];
-  #     theme = "robbyrussell";
-  #   };
+    #   ohMyZsh = {
+    #     enable = true;
+    #     plugins = [
+    #       "git"
+    #       "python"
+    #       "man"
+    #     ];
+    #     theme = "robbyrussell";
+    #   };
   };
 
   programs.direnv = {
@@ -255,4 +266,15 @@
     dates = "weekly";
     options = "--delete-older-than 30d";
   };
+
+  # Add keyboard driver for unlocking with disk encryption
+  boot.initrd.kernelModules = [
+    "pinctrl_tigerlake"
+    "8250_dw"
+    "surface_aggregator"
+    "surface_aggregator_registry"
+    "surface_aggregator_hub"
+    "surface_hid_core"
+    "surface_hid"
+  ];
 }
