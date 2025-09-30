@@ -30,24 +30,28 @@
       # Optional but recommended to limit the size of your system closure.
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    disko.url = "github:nix-community/disko";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
   };
-  outputs = {
-    self,
-    nixpkgs,
-    nixos-hardware,
-    home-manager,
-    zen-browser,
-    blender-bin,
-    lanzaboote,
-    ...
-  } @ inputs: {
-    nixosConfigurations.nixos-laptop =
-      nixpkgs.lib.nixosSystem
-      {
+  outputs =
+    {
+      self,
+      nixpkgs,
+      disko,
+      nixos-hardware,
+      home-manager,
+      zen-browser,
+      blender-bin,
+      lanzaboote,
+      ...
+    }@inputs:
+    {
+      nixosConfigurations.nixos-laptop = nixpkgs.lib.nixosSystem {
         modules = [
           ./configuration.nix
           nixos-hardware.nixosModules.microsoft-surface-common
           home-manager.nixosModules.home-manager
+          disko.nixosModules.disko
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
@@ -59,7 +63,7 @@
           }
           lanzaboote.nixosModules.lanzaboote
         ];
-        specialArgs = {inherit inputs;};
+        specialArgs = { inherit inputs; };
       };
-  };
+    };
 }
