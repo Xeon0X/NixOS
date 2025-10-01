@@ -78,11 +78,11 @@
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/user-agent-string-switcher/latest.xpi";
           installation_mode = "force_installed";
         };
-        # Video download helper
-        "{b9db16a4-6edc-47ec-a1f4-b86292ed211d}" = {
-          install_url = "https://addons.mozilla.org/firefox/downloads/latest/video-downloadhelper/latest.xpi";
-          installation_mode = "force_installed";
-        };
+        # # Video download helper
+        # "{b9db16a4-6edc-47ec-a1f4-b86292ed211d}" = {
+        #   install_url = "https://addons.mozilla.org/firefox/downloads/latest/video-downloadhelper/latest.xpi";
+        #   installation_mode = "force_installed";
+        # };
       };
     };
   };

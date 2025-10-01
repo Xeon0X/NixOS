@@ -6,7 +6,7 @@
     ./zoxide.nix
     ./gnome-extensions.nix
     ./gnome-settings.nix
-    ./firefox.nix
+    # ./firefox.nix
     ./git.nix
     ./others.nix
   ];

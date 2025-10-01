@@ -169,13 +169,13 @@
     nil
     gnome-tweaks
     gnome-extension-manager
-    input-leap
+    # input-leap
     nextcloud-client
     nixfmt-rfc-style
     vulkan-loader
     vulkan-validation-layers
     vulkan-tools
-    sbctl # For Lanzaboote
+    # sbctl # For Lanzaboote
   ];
 
   virtualisation.docker = {
