@@ -23,6 +23,8 @@
       # to have it up-to-date or simply don't specify the nixpkgs input
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    disko.url = "github:nix-community/disko";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
     blender-bin.url = "github:edolstra/nix-warez?dir=blender";
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.2";
@@ -30,15 +32,12 @@
       # Optional but recommended to limit the size of your system closure.
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    disko.url = "github:nix-community/disko";
-    disko.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs =
     {
       self,
       nixpkgs,
       disko,
-      nixos-hardware,
       home-manager,
       zen-browser,
       blender-bin,
@@ -46,10 +45,9 @@
       ...
     }@inputs:
     {
-      nixosConfigurations.nixos-laptop = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.nixos-desktop = nixpkgs.lib.nixosSystem {
         modules = [
           ./configuration.nix
-          nixos-hardware.nixosModules.microsoft-surface-common
           home-manager.nixosModules.home-manager
           disko.nixosModules.disko
           {

@@ -21,6 +21,12 @@
       show-weekdate = true;
     };
 
+    # Blur my shell
+    "org/gnome/shell/extensions/blur-my-shell/applications" = {
+      blur = true;
+      enable-all = true;
+    };
+
     # Tiling Shell
     "org/gnome/shell/extensions/tilingshell" = {
       inner-gaps = lib.hm.gvariant.mkUint32 8;
@@ -44,10 +50,10 @@
         "_memory_usage_"
         # "_storage_used_"
         "_temperature_gpu_"
-        # "_fan_gpu_"
-        # "_gpu#1_utilization_"
+        "_fan_gpu_"
+        "_gpu#1_utilization_"
         "_gpu#1_power_"
-        # "_gpu#1_memory_reserved_"
+        "_gpu#1_memory_reserved_"
       ];
     };
 
@@ -62,7 +68,7 @@
       enabled-extensions = [
         "trayIconsReloaded@selfmade.pl"
         "launch-new-instance@gnome-shell-extensions.gcampax.github.com"
-        # "light-style@gnome-shell-extensions.gcampax.github.com"
+        "light-style@gnome-shell-extensions.gcampax.github.com"
         # "system-monitor@gnome-shell-extensions.gcampax.github.com"
         "nightthemeswitcher@romainvigier.fr"
         "tilingshell@ferrarodomenico.com"

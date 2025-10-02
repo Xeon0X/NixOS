@@ -7,12 +7,16 @@
   inputs,
   ...
 }:
+let
+  PRIMARYUSBID = "2800-D721";
+in
 {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./nvidia-configuration.nix
     ./disko-configuration.nix
+    ./orca-slicer.nix
   ];
 
   # Bootloader.
@@ -29,7 +33,40 @@
     pkiBundle = "/var/lib/sbctl";
   };
 
-  networking.hostName = "nixos-laptop"; # Define your hostname.
+  # For dual boot
+  # time.hardwareClockInLocalTime = true;
+
+  # TPM
+  security.tpm2.enable = true;
+  security.tpm2.pkcs11.enable = true; # expose /run/current-system/sw/lib/libtpm2_pkcs11.so
+  security.tpm2.tctiEnvironment.enable = true; # TPM2TOOLS_TCTI and TPM2_PKCS11_TCTI env variables
+  # users.users.xeon0x.extraGroups = [ "tss" ]; # tss group has access to TPM devices # added below
+
+  # Systemd
+  boot.initrd.systemd.enable = true;
+
+  # Disk auto-decryption via usb stick
+  boot.initrd.kernelModules = [
+    "uas"
+    "usbcore"
+    "usb_storage"
+    "vfat"
+    "nls_cp437"
+    "nls_iso8859_1"
+  ];
+  boot.initrd.systemd.mounts = [
+    {
+      what = "UUID=${PRIMARYUSBID}";
+      where = "/keys";
+      type = "vfat";
+    }
+  ];
+  # LUKS device using the keyfile
+  boot.initrd.luks.devices."encrypted" = {
+    keyFile = "/keys/nixos-desktop";
+  };
+
+  networking.hostName = "nixos-desktop"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -59,6 +96,7 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
+  # services.xserver.dpi = 96;
 
   fonts.fontconfig.antialias = true;
   fonts.fontconfig.hinting.enable = true;
@@ -71,22 +109,25 @@
     minecraftia
   ];
 
+  # hardware.ckb-next.enable = true; # For Corsair Keyboard
+  hardware.graphics.enable = true;
+
   # Custom config for touchscreen
-  services.xserver.wacom.enable = true;
-  services.iptsd.enable = true;
-  services.iptsd.config.Touchscreen = {
-    DisableOnStylus = true;
-    DisableOnPalm = true;
-  };
-  environment.etc."libinput/local-overrides.quirks".text = pkgs.lib.mkForce ''
-    [Microsoft Surface Laptop Studio Touchpad]
-    MatchVendor=0x045E
-    MatchProduct=0x09AF
-    MatchUdevType=touchpad
-    AttrPressureRange=2:1
-    AttrPalmPressureThreshold=500
-    AttrEventCode=-REL_WHEEL_HI_RES;-REL_HWHEEL_HI_RES;
-  '';
+  # services.xserver.wacom.enable = true;
+  # services.iptsd.enable = true;
+  # services.iptsd.config.Touchscreen = {
+  #   DisableOnStylus = true;
+  #   DisableOnPalm = true;
+  # };
+  # environment.etc."libinput/local-overrides.quirks".text = pkgs.lib.mkForce ''
+  #   [Microsoft Surface Laptop Studio Touchpad]
+  #   MatchVendor=0x045E
+  #   MatchProduct=0x09AF
+  #   MatchUdevType=touchpad
+  #   AttrPressureRange=2:1
+  #   AttrPalmPressureThreshold=500
+  #   AttrEventCode=-REL_WHEEL_HI_RES;-REL_HWHEEL_HI_RES;
+  # '';
 
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
@@ -94,6 +135,9 @@
 
   # GNOME Configuration
   programs.dconf.enable = true;
+
+  # OpenRGB
+  services.hardware.openrgb.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -116,7 +160,7 @@
     alsa.support32Bit = true;
     pulse.enable = true;
     # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
+    jack.enable = true; # required for ledfx
 
     # use the example session manager (no others are packaged yet so this is enabled by default,
     # no need to redefine it in your config for now)
@@ -125,6 +169,11 @@
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
+
+  # Ollama
+  # services.ollama.enable = true;
+  # services.ollama.acceleration = "cuda";
+  # services.open-webui.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   nix.settings.experimental-features = [
@@ -137,8 +186,10 @@
     extraGroups = [
       "networkmanager"
       "wheel"
+      "tss" # TPM
     ];
     shell = pkgs.zsh;
+
   };
 
   # Install firefox.
@@ -174,58 +225,49 @@
     btop
     wget
     # alejandra
-    libwacom-surface
-    surface-control
+    # libwacom-surface
+    # surface-control
     gnome-software
     nixd
     nil
     gnome-tweaks
     gnome-extension-manager
-    input-leap
+    cascadia-code
     nextcloud-client
     nixfmt-rfc-style
     vulkan-loader
     vulkan-validation-layers
     vulkan-tools
-    sbctl # For Lanzaboote
+    sbctl # For Lanzaboot
+    input-leap
   ];
-
-  virtualisation.docker = {
-    enable = true;
-  };
 
   services.thermald.enable = true;
   services.flatpak.enable = true;
 
   programs.zsh = {
     enable = true;
-    #   enableCompletion = true;
-    #   autosuggestions.enable = true;
-    #   syntaxHighlighting.enable = true;
+    enableCompletion = true;
+    autosuggestions.enable = true;
+    syntaxHighlighting.enable = true;
 
-    #   shellAliases = {
-    #     ll = "ls -l";
-    #     nix-rebuild = "sudo nixos-rebuild switch --flake .#nixos-laptop --show-trace";
-    #     nix-setting = "dconf watch /";
-    #     nix-clean = "sudo nix-collect-garbage -d";
-    #     nix-update = "sudo nix flake update";
-    #   };
+    shellAliases = {
+      ll = "ls -l";
+      nix-rebuild = "sudo nixos-rebuild switch";
+      nix-setting = "dconf watch /";
+      nix-clean = "sudo nix-collect-garbage -d";
+      nix-update = "sudo nix flake update";
+    };
 
-    #   shellInit = ''
-    #     nix-quick(){
-    #       ${lib.getExe pkgs.nix} flake init --template "https://flakehub.com/f/the-nix-way/dev-templates/*#$1"
-    #   }
-    #   '';
-
-    #   ohMyZsh = {
-    #     enable = true;
-    #     plugins = [
-    #       "git"
-    #       "python"
-    #       "man"
-    #     ];
-    #     theme = "robbyrussell";
-    #   };
+    ohMyZsh = {
+      enable = true;
+      plugins = [
+        "git"
+        "python"
+        "man"
+      ];
+      theme = "robbyrussell";
+    };
   };
 
   programs.direnv = {
@@ -266,15 +308,4 @@
     dates = "weekly";
     options = "--delete-older-than 30d";
   };
-
-  # Add keyboard driver for unlocking with disk encryption
-  boot.initrd.kernelModules = [
-    "pinctrl_tigerlake"
-    "8250_dw"
-    "surface_aggregator"
-    "surface_aggregator_registry"
-    "surface_aggregator_hub"
-    "surface_hid_core"
-    "surface_hid"
-  ];
 }

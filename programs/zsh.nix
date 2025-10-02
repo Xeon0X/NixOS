@@ -1,4 +1,5 @@
-{ pkgs, lib, ... }: {
+{ pkgs, lib, ... }:
+{
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -11,7 +12,7 @@
       nix-setting = "dconf watch /";
       nix-clean = "sudo nix-collect-garbage -d";
       nix-update = "sudo nix flake update";
-      cd = "z";  # provided by zoxide
+      cd = "z"; # provided by zoxide
     };
 
     initContent = ''

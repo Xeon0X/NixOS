@@ -3,28 +3,42 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   # Enable OpenGL
   hardware.graphics = {
     enable = true;
   };
-
   environment.variables = {
     XDG_DATA_DIRS = lib.mkForce "/run/opengl-driver/share:$XDG_DATA_DIRS"; # For Vulkan
   };
 
   # Load nvidia driver for Xorg and Wayland
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = [ "nvidia" ];
+
+  boot = {
+    # TODO: confirm this works
+    # https://forums.developer.nvidia.com/t/550-54-14-cannot-create-sg-table-for-nvkmskapimemory-spammed-when-launching-chrome-on-wayland/284775/26
+    initrd.kernelModules = [
+      "nvidia"
+      "i915"
+      "nvidia_modeset"
+      "nvidia_uvm"
+      "nvidia_drm"
+    ];
+    # extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
+    kernelParams = [ "nvidia-drm.fbdev=1" ];
+  };
 
   hardware.nvidia = {
-    prime.offload = {
-      enable = true;
-      enableOffloadCmd = true;
-    };
-    # Make sure to use the correct Bus ID values for your system!
-    prime.intelBusId = "PCI:0:2:0";
-    prime.nvidiaBusId = "PCI:243:0:0";
-    # amdgpuBusId = "PCI:54:0:0"; For AMD GPU
+    # prime.offload = {
+    #   enable = true;
+    #   enableOffloadCmd = true;
+    # };
+    # # Make sure to use the correct Bus ID values for your system!
+    # prime.intelBusId = "PCI:0:2:0";
+    # prime.nvidiaBusId = "PCI:243:0:0";
+    # # amdgpuBusId = "PCI:54:0:0"; For AMD GPU
 
     # Modesetting is required.
     modesetting.enable = true;

@@ -1,11 +1,10 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   programs.zen-browser = {
     enable = true;
-    nativeMessagingHosts = [pkgs.firefoxpwa];
+    nativeMessagingHosts = [ pkgs.firefoxpwa ];
 
-    /*
-    ---- POLICIES ----
-    */
+    # ---- POLICIES ----
     # Check about:policies#documentation for options.
     policies = {
       AutofillAddressEnabled = true;
@@ -25,9 +24,7 @@
         Fingerprinting = true;
       };
 
-      /*
-      ---- EXTENSIONS ----
-      */
+      # ---- EXTENSIONS ----
       # Check about:support for extension/add-on ID strings.
       # Valid strings for installation_mode are "allowed", "blocked",
       # "force_installed" and "normal_installed".
@@ -79,10 +76,10 @@
           installation_mode = "force_installed";
         };
         # Video download helper
-        "{b9db16a4-6edc-47ec-a1f4-b86292ed211d}" = {
-          install_url = "https://addons.mozilla.org/firefox/downloads/latest/video-downloadhelper/latest.xpi";
-          installation_mode = "force_installed";
-        };
+        # "{b9db16a4-6edc-47ec-a1f4-b86292ed211d}" = {
+        #   install_url = "https://addons.mozilla.org/firefox/downloads/latest/video-downloadhelper/latest.xpi";
+        #   installation_mode = "force_installed";
+        # };
       };
     };
   };

@@ -1,4 +1,5 @@
-{pkgs, ...}: let
+{ pkgs, ... }:
+let
   lock-false = {
     Value = false;
     Status = "locked";
@@ -7,15 +8,14 @@
     Value = true;
     Status = "locked";
   };
-in {
+in
+{
   # https://discourse.nixos.org/t/declare-firefox-extensions-and-settings/36265
   programs.firefox = {
     enable = true;
-    nativeMessagingHosts = [pkgs.firefoxpwa];
+    nativeMessagingHosts = [ pkgs.firefoxpwa ];
 
-    /*
-    ---- POLICIES ----
-    */
+    # ---- POLICIES ----
     # Check about:policies#documentation for options.
     policies = {
       DisableTelemetry = true;
@@ -37,9 +37,7 @@ in {
       DisplayMenuBar = "default-off"; # alternatives: "always", "never" or "default-on"
       SearchBar = "unified"; # alternative: "separate"
 
-      /*
-      ---- EXTENSIONS ----
-      */
+      # ---- EXTENSIONS ----
       # Check about:support for extension/add-on ID strings.
       # Valid strings for installation_mode are "allowed", "blocked",
       # "force_installed" and "normal_installed".
@@ -97,9 +95,7 @@ in {
         };
       };
 
-      /*
-      ---- PREFERENCES ----
-      */
+      # ---- PREFERENCES ----
       # Check about:config for options.
       Preferences = {
         "browser.contentblocking.category" = {
