@@ -21,6 +21,15 @@
       show-weekdate = true;
     };
 
+    # Blur my shell
+    "org/gnome/shell/extensions/blur-my-shell/applications" = {
+      blur = true;
+      enable-all = true;
+    };
+    "org/gnome/shell/extensions/blur-my-shell/panel" = {
+      force-light-text = true;
+    };
+
     # Tiling Shell
     "org/gnome/shell/extensions/tilingshell" = {
       inner-gaps = lib.hm.gvariant.mkUint32 8;
@@ -62,7 +71,7 @@
       enabled-extensions = [
         "trayIconsReloaded@selfmade.pl"
         "launch-new-instance@gnome-shell-extensions.gcampax.github.com"
-        # "light-style@gnome-shell-extensions.gcampax.github.com"
+        "light-style@gnome-shell-extensions.gcampax.github.com"
         # "system-monitor@gnome-shell-extensions.gcampax.github.com"
         "nightthemeswitcher@romainvigier.fr"
         "tilingshell@ferrarodomenico.com"

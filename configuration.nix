@@ -169,7 +169,7 @@
     nil
     gnome-tweaks
     gnome-extension-manager
-    # input-leap
+    input-leap
     nextcloud-client
     nixfmt-rfc-style
     vulkan-loader
