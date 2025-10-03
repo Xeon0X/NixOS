@@ -8,7 +8,7 @@
 
     shellAliases = {
       ll = "ls -l";
-      nix-rebuild = "sudo nixos-rebuild switch --flake .#nixos-laptop --show-trace";
+      nix-rebuild = "sudo nixos-rebuild switch --flake .#nixos-desktop --show-trace";
       nix-setting = "dconf watch /";
       nix-clean = "sudo nix-collect-garbage -d";
       nix-update = "sudo nix flake update";

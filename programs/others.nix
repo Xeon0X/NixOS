@@ -10,7 +10,6 @@
     # python3 # required for zed java extension
     inkscape
     jetbrains.idea-community
-    # vdhcoapp
     worldpainter
     jmc2obj
     freecad
@@ -18,11 +17,8 @@
     ledfx
     hyperhdr
     ffmpeg-full
-    # mpv
     vlc
     davinci-resolve
-    tor-browser
     audacity
-    jmc2obj
   ];
 }

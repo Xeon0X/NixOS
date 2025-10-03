@@ -224,7 +224,6 @@ in
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     btop
     wget
-    # alejandra
     # libwacom-surface
     # surface-control
     gnome-software
@@ -238,7 +237,7 @@ in
     vulkan-loader
     vulkan-validation-layers
     vulkan-tools
-    sbctl # For Lanzaboot
+    # sbctl # For Lanzaboot
     input-leap
   ];
 

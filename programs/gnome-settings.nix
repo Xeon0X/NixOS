@@ -22,10 +22,10 @@
     };
 
     # Blur my shell
-    "org/gnome/shell/extensions/blur-my-shell/applications" = {
-      blur = true;
-      enable-all = true;
-    };
+    # "org/gnome/shell/extensions/blur-my-shell/applications" = {
+    #   blur = true;
+    #   enable-all = true;
+    # };
 
     # Tiling Shell
     "org/gnome/shell/extensions/tilingshell" = {
