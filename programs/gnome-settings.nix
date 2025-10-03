@@ -26,6 +26,9 @@
     #   blur = true;
     #   enable-all = true;
     # };
+    "org/gnome/shell/extensions/blur-my-shell/panel" = {
+      force-light-text = true;
+    };
 
     # Tiling Shell
     "org/gnome/shell/extensions/tilingshell" = {
