@@ -2,9 +2,11 @@
   # Cuda
   nixConfig = {
     extra-substituters = [
+      "https://cache.onyx.ovh"
       "https://cuda-maintainers.cachix.org"
     ];
     extra-trusted_public-keys = [
+      "cache.onyx.ovh:2wUG6wsx5slbKUgkHT6GJuQ5k2StuUc8ysZQ2W+fbxA="
       "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
     ];
   };
