@@ -1,0 +1,7 @@
+[Desktop Entry]
+Exec=sh -c "sleep 5 && ledfx"
+Icon=
+Name=LedFX
+Path=
+Terminal=false
+Type=Application
