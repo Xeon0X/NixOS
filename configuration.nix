@@ -11,6 +11,7 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./nvidia-configuration.nix
+    ./disko-configuration.nix
   ];
 
   # Bootloader.
@@ -254,4 +255,22 @@
     dates = "weekly";
     options = "--delete-older-than 30d";
   };
+
+  # Add keyboard driver for unlocking with disk encryption
+  boot.initrd.kernelModules = [
+    "pinctrl_tigerlake"
+    "8250_dw"
+    "surface_aggregator"
+    "surface_aggregator_registry"
+    "surface_aggregator_hub"
+    "surface_hid_core"
+    "surface_hid"
+    "intel_lpss"
+    "intel_lpss_pci"
+  ];
+
+  # Fix NVIDIA GPU locked at 10W power limit
+  boot.extraModprobeConfig = ''
+    options nvidia NVreg_DynamicPowerManagement=0x00
+  '';
 }

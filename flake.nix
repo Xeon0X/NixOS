@@ -5,7 +5,7 @@
       "https://cache.onyx.ovh"
       "https://cuda-maintainers.cachix.org"
     ];
-    extra-trusted_public-keys = [
+    extra-trusted-public-keys = [
       "cache.onyx.ovh:2wUG6wsx5slbKUgkHT6GJuQ5k2StuUc8ysZQ2W+fbxA="
       "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
     ];
@@ -32,10 +32,13 @@
       # Optional but recommended to limit the size of your system closure.
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    disko.url = "github:nix-community/disko";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs = {
     self,
     nixpkgs,
+    disko,
     nixos-hardware,
     home-manager,
     zen-browser,
@@ -50,6 +53,7 @@
           ./configuration.nix
           nixos-hardware.nixosModules.microsoft-surface-common
           home-manager.nixosModules.home-manager
+          disko.nixosModules.disko
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
