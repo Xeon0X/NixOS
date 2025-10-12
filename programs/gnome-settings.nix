@@ -22,10 +22,9 @@
     };
 
     # Blur my shell
-    # "org/gnome/shell/extensions/blur-my-shell/applications" = {
-    #   blur = true;
-    #   enable-all = true;
-    # };
+    "org/gnome/shell/extensions/blur-my-shell/overview" = {
+      style-components = 3;
+    };
     "org/gnome/shell/extensions/blur-my-shell/panel" = {
       force-light-text = true;
     };
