@@ -23,8 +23,11 @@
 
     # Blur my shell
     "org/gnome/shell/extensions/blur-my-shell/applications" = {
-      blur = true;
+      blur = false;
       enable-all = true;
+    };
+    "org/gnome/shell/extensions/blur-my-shell/overview" = {
+      style-components = 3;
     };
     "org/gnome/shell/extensions/blur-my-shell/panel" = {
       force-light-text = true;
@@ -86,12 +89,20 @@
       ];
     };
 
-    "org/gnome/Console/custom-font" = {
-      value = "Cascadia Code 14";
+    "org/gnome/Console" = {
+      custom-font = "Cascadia Code 16";
+      use-system-font = true;
+      font-scale = 1.5000000000000004;
+      audible-bell = false;
+      ignore-scrollback-limit = true;
+      theme = "auto";
     };
 
-    "org/gnome/Console/use-system-font" = {
-      value = false;
+    # Power setting
+    "org/gnome/settings-daemon/plugins/power" = {
+      ambient-enabled = false;
+      idle-dim = false;
+      power-saver-profile-on-low-battery = false;
     };
   };
 }
