@@ -1,20 +1,21 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   home.packages = with pkgs; [
     obsidian
     libreoffice
     rnote
     prismlauncher
     keepassxc
-    # orca-slicer
+    orca-slicer
     jdk # required for zed java extension
     python3 # required for zed java extension
-    # inkscape
+    inkscape
     jetbrains.idea-community
     # vdhcoapp
     # worldpainter
     # jmc2obj
-    # freecad
-    # kicad
+    freecad
+    kicad
     nextcloud-client
   ];
 }

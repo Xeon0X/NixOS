@@ -104,5 +104,10 @@
       idle-dim = false;
       power-saver-profile-on-low-battery = false;
     };
+
+    # Dock
+    "org/gnome/shell" = {
+      favorite-apps = [ ];
+    };
   };
 }
