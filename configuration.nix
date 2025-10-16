@@ -193,6 +193,8 @@
     vulkan-validation-layers
     vulkan-tools
     # sbctl # For Lanzaboote
+    chromium
+    delta
   ];
 
   virtualisation.docker = {
