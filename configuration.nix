@@ -44,6 +44,9 @@ in
 
   # Systemd
   boot.initrd.systemd.enable = true;
+  systemd.services.hyperhdr = {
+    serviceConfig.SupplementaryGroups = [ "dialout" ];
+  };
 
   # Disk auto-decryption via usb stick
   boot.initrd.kernelModules = [
@@ -187,6 +190,7 @@ in
       "networkmanager"
       "wheel"
       "tss" # TPM
+      "dialout" # HyperHDR
     ];
     shell = pkgs.zsh;
 
@@ -239,6 +243,7 @@ in
     vulkan-tools
     # sbctl # For Lanzaboot
     input-leap
+    chromium
   ];
 
   services.thermald.enable = true;
