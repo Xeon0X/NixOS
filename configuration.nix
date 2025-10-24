@@ -195,7 +195,23 @@
     # sbctl # For Lanzaboote
     chromium
     delta
+    esptool
+    inetutils
+    dig
   ];
+
+  services.postfix = {
+    enable = true;
+    config = {
+      inet_interfaces = "localhost";
+      mydomain = "onyx.ovh";
+    };
+  };
+
+  services.dovecot2 = {
+    enable = true;
+    enablePop3 = true;
+  };
 
   virtualisation.docker = {
     enable = true;
@@ -255,7 +271,10 @@
   # services.openssh.enable = true;
 
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 24800 ];
+  networking.firewall.allowedTCPPorts = [
+    24800
+    110
+  ];
   networking.firewall.allowedUDPPorts = [ 24800 ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;

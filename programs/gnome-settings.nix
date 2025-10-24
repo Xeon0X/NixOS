@@ -92,7 +92,7 @@
     "org/gnome/Console" = {
       custom-font = "Cascadia Code 16";
       use-system-font = true;
-      font-scale = 1.5000000000000004;
+      font-scale = 1;
       audible-bell = false;
       ignore-scrollback-limit = true;
       theme = "auto";
