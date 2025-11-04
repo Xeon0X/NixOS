@@ -92,5 +92,10 @@
     "org/gnome/Console/use-system-font" = {
       value = false;
     };
+
+    # Dock
+    "org/gnome/shell" = {
+      favorite-apps = [ ];
+    };
   };
 }

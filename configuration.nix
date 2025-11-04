@@ -8,7 +8,7 @@
   ...
 }:
 let
-  PRIMARYUSBID = "2800-D721";
+  PRIMARYUSBID = "0718-0246";
 in
 {
   imports = [
@@ -244,6 +244,9 @@ in
     # sbctl # For Lanzaboot
     input-leap
     chromium
+    shortwave
+    esptool-ck
+    esptool
   ];
 
   services.thermald.enable = true;
