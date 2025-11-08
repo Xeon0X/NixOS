@@ -247,6 +247,7 @@ in
     shortwave
     esptool-ck
     esptool
+    home-manager
   ];
 
   services.thermald.enable = true;
@@ -315,4 +316,9 @@ in
     dates = "weekly";
     options = "--delete-older-than 30d";
   };
+
+  nixpkgs.config.permittedInsecurePackages = [
+    "mbedtls-2.28.10"
+    "python3.12-ecdsa-0.19.1"
+  ];
 }
