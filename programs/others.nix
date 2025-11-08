@@ -20,5 +20,6 @@
     vlc
     davinci-resolve
     audacity
+    gcc
   ];
 }

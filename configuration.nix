@@ -8,7 +8,7 @@
   ...
 }:
 let
-  PRIMARYUSBID = "0718-0246";
+  PRIMARYUSBID = "2800-D721";
 in
 {
   imports = [
