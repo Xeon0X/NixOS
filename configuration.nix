@@ -139,6 +139,10 @@ in
   # GNOME Configuration
   programs.dconf.enable = true;
 
+  environment.sessionVariables = {
+    GDK_GL = "gles"; # For Totem with OpenGL
+  };
+
   # OpenRGB
   services.hardware.openrgb.enable = true;
 
@@ -248,6 +252,7 @@ in
     esptool-ck
     esptool
     home-manager
+    rclone
   ];
 
   services.thermald.enable = true;
