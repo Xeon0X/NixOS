@@ -195,6 +195,7 @@ in
       "wheel"
       "tss" # TPM
       "dialout" # HyperHDR
+      "docker"
     ];
     shell = pkgs.zsh;
 
@@ -254,6 +255,8 @@ in
     home-manager
     rclone
   ];
+
+  virtualisation.docker.enable = true;
 
   services.thermald.enable = true;
   services.flatpak.enable = true;
