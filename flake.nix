@@ -35,20 +35,20 @@
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
   };
-  outputs = {
-    self,
-    nixpkgs,
-    disko,
-    nixos-hardware,
-    home-manager,
-    zen-browser,
-    blender-bin,
-    lanzaboote,
-    ...
-  } @ inputs: {
-    nixosConfigurations.nixos-laptop =
-      nixpkgs.lib.nixosSystem
-      {
+  outputs =
+    {
+      self,
+      nixpkgs,
+      disko,
+      nixos-hardware,
+      home-manager,
+      zen-browser,
+      blender-bin,
+      lanzaboote,
+      ...
+    }@inputs:
+    {
+      nixosConfigurations.nixos-laptop = nixpkgs.lib.nixosSystem {
         modules = [
           ./configuration.nix
           nixos-hardware.nixosModules.microsoft-surface-common
@@ -65,7 +65,7 @@
           }
           lanzaboote.nixosModules.lanzaboote
         ];
-        specialArgs = {inherit inputs;};
+        specialArgs = { inherit inputs; };
       };
-  };
+    };
 }
