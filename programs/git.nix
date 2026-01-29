@@ -2,14 +2,14 @@
 {
   programs.git = {
     enable = true;
-    userName = "Xeon0X";
-    userEmail = "xeon0x.gaming@gmail.com";
     signing = {
       key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINPpQJnllGAE1hyrZFuRcALJEtzgEnLI8VYq0EETf3lJ (encrypted)";
       signByDefault = true;
       format = "ssh";
     };
-    extraConfig = {
+    settings = {
+      user.name = "Xeon0X";
+      user.email = "xeon0x.gaming@gmail.com";
       pull.rebase = true;
       merge.conflictstyle = "zdiff3";
       merge.tool = "vimdiff";

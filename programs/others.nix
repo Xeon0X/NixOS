@@ -10,7 +10,7 @@
     jdk # required for zed java extension
     python3 # required for zed java extension
     inkscape
-    jetbrains.idea-community
+    jetbrains.idea-oss
     # vdhcoapp
     # worldpainter
     # jmc2obj
