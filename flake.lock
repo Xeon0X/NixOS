@@ -161,16 +161,16 @@
     },
     "nixos-hardware": {
       "locked": {
-        "lastModified": 1769302137,
-        "narHash": "sha256-QEDtctEkOsbx8nlFh4yqPEOtr4tif6KTqWwJ37IM2ds=",
-        "owner": "NixOS",
+        "lastModified": 1769360680,
+        "narHash": "sha256-lXzNhCDopt6W3NqpfmwmbibEyCwLMH0sIZ/1K5bLg5I=",
+        "owner": "8bitbuddhist",
         "repo": "nixos-hardware",
-        "rev": "a351494b0e35fd7c0b7a1aae82f0afddf4907aa8",
+        "rev": "e0e7d14d17c1c4831ea5fbc4b6baf20174a99a3f",
         "type": "github"
       },
       "original": {
-        "owner": "NixOS",
-        "ref": "master",
+        "owner": "8bitbuddhist",
+        "ref": "surface-kernel-6.18",
         "repo": "nixos-hardware",
         "type": "github"
       }
