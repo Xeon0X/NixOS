@@ -142,6 +142,7 @@
     extraGroups = [
       "networkmanager"
       "wheel"
+      "libvirtd"
     ];
     shell = pkgs.zsh;
   };
@@ -195,7 +196,17 @@
     # sbctl # For Lanzaboote
     chromium
     esptool
+    # support 64-bit only
+    wine64
+    # winetricks (all versions)
+    winetricks
+    # native wayland support (unstable)
+    wineWowPackages.waylandFull
   ];
+
+  programs.virt-manager.enable = true;
+  virtualisation.libvirtd.enable = true;
+  virtualisation.spiceUSBRedirection.enable = true;
 
   virtualisation.docker = {
     enable = true;
