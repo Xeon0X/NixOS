@@ -100,6 +100,12 @@
   # GNOME Configuration
   programs.dconf.enable = true;
 
+  environment.sessionVariables = {
+    GDK_GL = "gles"; # For Totem with OpenGL
+    QT_QPA_PLATFORM = "xcb"; # FreeCAD
+    GSETTINGS_SCHEMA_DIR = "${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}/glib-2.0/schemas"; # Make GTK3 file-chooser settings discoverable
+  };
+
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "fr";
@@ -202,6 +208,8 @@
     winetricks
     # native wayland support (unstable)
     wineWowPackages.waylandFull
+    freecad
+    nh
   ];
 
   programs.virt-manager.enable = true;
