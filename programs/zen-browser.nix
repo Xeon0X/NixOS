@@ -1,11 +1,10 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   programs.zen-browser = {
     enable = true;
-    nativeMessagingHosts = [pkgs.firefoxpwa];
+    nativeMessagingHosts = [ pkgs.firefoxpwa ];
 
-    /*
-    ---- POLICIES ----
-    */
+    # ---- POLICIES ----
     # Check about:policies#documentation for options.
     policies = {
       AutofillAddressEnabled = true;
@@ -25,9 +24,7 @@
         Fingerprinting = true;
       };
 
-      /*
-      ---- EXTENSIONS ----
-      */
+      # ---- EXTENSIONS ----
       # Check about:support for extension/add-on ID strings.
       # Valid strings for installation_mode are "allowed", "blocked",
       # "force_installed" and "normal_installed".
@@ -76,6 +73,11 @@
         # User Agent
         "{a6c4a591-f1b2-4f03-b3ff-767e5bedf4e7}" = {
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/user-agent-string-switcher/latest.xpi";
+          installation_mode = "force_installed";
+        };
+        # Zotero Connector
+        "zotero@chnm.gmu.edu" = {
+          install_url = "https://download.zotero.org/connector/firefox/release/Zotero_Connector-5.0.195.xpi";
           installation_mode = "force_installed";
         };
         # # Video download helper

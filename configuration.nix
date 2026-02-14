@@ -210,6 +210,7 @@
     wineWowPackages.waylandFull
     freecad
     nh
+    zotero
   ];
 
   programs.virt-manager.enable = true;
