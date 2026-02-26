@@ -37,7 +37,10 @@
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Enable networking
-  networking.networkmanager.enable = true;
+  networking.networkmanager = {
+    enable = true;
+    settings.connectivity.uri = "http://detectportal.firefox.com/";
+  };
 
   # Set your time zone.
   time.timeZone = "Europe/Paris";
@@ -211,6 +214,7 @@
     freecad
     nh
     zotero
+    blender
   ];
 
   programs.virt-manager.enable = true;
