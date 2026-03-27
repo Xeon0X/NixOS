@@ -184,7 +184,6 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    blender_4_5
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     btop
     wget
@@ -216,6 +215,11 @@
     zotero
     blender
   ];
+
+  programs.nix-ld = {
+    enable = true;
+    libraries = pkgs.steam-run.args.multiPkgs pkgs;
+  };
 
   programs.virt-manager.enable = true;
   virtualisation.libvirtd.enable = true;
