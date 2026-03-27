@@ -46,6 +46,7 @@
 
     # Vitals
     "org/gnome/shell/extensions/vitals" = {
+      position-in-panel = 0;
       icon-style = 1;
       update-time = 1;
       show-gpu = true;
