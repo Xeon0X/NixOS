@@ -37,10 +37,10 @@
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Enable networking
-  networking.networkmanager = {
-    enable = true;
-    settings.connectivity.uri = "http://detectportal.firefox.com/";
-  };
+  # networking.networkmanager = {
+  #   enable = true;
+  #   settings.connectivity.uri = "http://detectportal.firefox.com/";
+  # };
 
   # Set your time zone.
   time.timeZone = "Europe/Paris";
@@ -173,6 +173,7 @@
         in
         {
           zed-editor = unstable.zed-editor;
+          kicad = unstable.kicad;
           worldpainter = unstable.worldpainter;
         }
       )
@@ -211,6 +212,7 @@
     # native wayland support (unstable)
     wineWowPackages.waylandFull
     freecad
+    kicad
     nh
     zotero
     blender

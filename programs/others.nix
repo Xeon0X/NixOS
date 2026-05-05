@@ -12,7 +12,7 @@
     # vdhcoapp
     # worldpainter
     # jmc2obj
-    kicad
+    # kicad
     nextcloud-client
   ];
 }

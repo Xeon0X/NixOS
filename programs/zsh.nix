@@ -1,4 +1,5 @@
-{ pkgs, lib, ... }: {
+{ pkgs, lib, ... }:
+{
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -7,11 +8,11 @@
 
     shellAliases = {
       ll = "ls -l";
-      nix-rebuild = "sudo nixos-rebuild switch --flake .#nixos-laptop --show-trace";
+      nix-rebuild = "nh os switch .";
       nix-setting = "dconf watch /";
-      nix-clean = "sudo nix-collect-garbage -d";
+      nix-clean = "nh clean all";
       nix-update = "sudo nix flake update";
-      cd = "z";  # provided by zoxide
+      cd = "z"; # provided by zoxide
     };
 
     initContent = ''
