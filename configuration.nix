@@ -13,6 +13,7 @@
     ./hardware-configuration.nix
     ./nvidia-configuration.nix
     ./disko-configuration.nix
+    ./orca-slicer.nix
   ];
 
   # Bootloader.

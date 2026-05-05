@@ -6,7 +6,6 @@
     rnote
     prismlauncher
     keepassxc
-    orca-slicer
     inkscape
     jetbrains.idea-oss
     # vdhcoapp
