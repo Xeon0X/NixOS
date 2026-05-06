@@ -8,7 +8,7 @@
 
     shellAliases = {
       ll = "ls -l";
-      nix-rebuild = "nh os switch .";
+      nix-rebuild = "sudo nh os switch .";
       nix-setting = "dconf watch /";
       nix-clean = "nh clean all";
       nix-update = "sudo nix flake update";
