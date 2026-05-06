@@ -163,6 +163,7 @@
   # Allow unfree packages
   nixpkgs = {
     config.allowUnfree = true;
+    config.cudaSupport = true;
     overlays = [
       (
         self: super:
@@ -179,7 +180,7 @@
         }
       )
 
-      inputs.blender-bin.overlays.default
+      # inputs.blender-bin.overlays.default
     ];
   };
 
