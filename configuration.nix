@@ -236,6 +236,15 @@
   services.thermald.enable = true;
   services.flatpak.enable = true;
 
+  services.mysql = {
+    enable = true;
+    package = pkgs.mysql84;
+    settings.mysqld = {
+      default_storage_engine = "InnoDB";
+      innodb_buffer_pool_size = "256M";
+    };
+  };
+
   programs.zsh = {
     enable = true;
     #   enableCompletion = true;
