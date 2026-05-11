@@ -218,6 +218,7 @@
     nh
     zotero
     blender
+    signal-desktop
   ];
 
   programs.nix-ld = {
